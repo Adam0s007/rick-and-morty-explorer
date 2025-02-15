@@ -1,33 +1,35 @@
-import { useState, useEffect, useTransition } from 'react';
+import { useState, useEffect } from 'react';
 
 const BASE_URL = 'https://rickandmortyapi.com/api';
 
 export const useRequest = <T>(endpoint: string) => {
-  const [data, setData] = useState<T | null>(null);
-  const [error, setError] = useState<string>('');
-  const [isPending, startTransition] = useTransition();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${BASE_URL}${endpoint}`);
-        if (!response.ok) throw new Error('Failed to fetch data');
-        const jsonData: T = await response.json();
-
-        startTransition(() => {
+    const [data, setData] = useState<T | null>(null);
+    const [error, setError] = useState<string>('');
+    const [isPending, setIsPending] = useState<boolean>(false);
+  
+    useEffect(() => {
+      const fetchData = async () => {
+        setIsPending(true);
+        try {
+          const response = await fetch(`${BASE_URL}${endpoint}`);
+          const jsonData = await response.json();
+  
+          if (!response.ok) {
+            throw new Error(jsonData.error || 'Failed to fetch data');
+          }
+  
           setData(jsonData);
           setError('');
-        });
-      } catch (err: any) {
-        startTransition(() => {
+        } catch (err: any) {
           setError(err.message);
           setData(null);
-        });
-      }
-    };
-
-    fetchData();
-  }, [endpoint, startTransition]);
-
-  return { data, isPending, error };
+        } finally {
+          setIsPending(false);
+        }
+      };
+  
+      fetchData();
+    }, [endpoint]);
+  
+    return { data, isPending, error };
 };

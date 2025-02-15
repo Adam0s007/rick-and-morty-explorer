@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { useCharacters } from '../hooks/useCharacters';
+import { Grid } from 'semantic-ui-react';
+import PaginationControls from '../components/PaginationControls';
 import CharacterList from '../components/CharacterList';
+import FilterDropdown from '../components/FilterDropdown';
 
 const statusOptions = [
   { key: 'all', text: 'All', value: '' },
@@ -39,18 +42,28 @@ const CharacterListPage: React.FC = () => {
   const handleNextPage = () => setCurrentPage(prev => Math.min(totalPages, prev + 1));
 
   return (
-    <CharacterList
-      statusOptions={statusOptions}
-      statusFilter={statusFilter}
+    <Grid padded container>
+    <Grid.Row>
+      <Grid.Column width={16}>
+        <FilterDropdown
+          statusOptions={statusOptions}
+          statusFilter={statusFilter}
+          onFilterChange={handleFilterChange}
+        />
+      </Grid.Column>
+    </Grid.Row>
+    <Grid.Row>
+      <Grid.Column width={16}>
+        <CharacterList characters={characters} loading={loading} error={error} />
+      </Grid.Column>
+    </Grid.Row>
+    <PaginationControls
       currentPage={currentPage}
       totalPages={totalPages}
-      characters={characters}
-      loading={loading}
-      error={error}
-      onFilterChange={handleFilterChange}
       onPrevPage={handlePrevPage}
       onNextPage={handleNextPage}
     />
+  </Grid>
   );
 };
 
