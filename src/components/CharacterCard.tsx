@@ -18,11 +18,13 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
+        cursor: 'pointer',
         textAlign: 'left',
         position: 'relative',
         overflow: 'hidden',
         maxWidth: '20em'
       }}
+      onClick={() => navigate(`/character/${character.id}`)}
     >
       <Image src={character.image} alt={character.name} wrapped ui={false} />
       
@@ -55,7 +57,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
           padding: hovered ? '1em' : '0 1em'
         }}
       >
-        <Button onClick={() => navigate(`/character/${character.id}`)} color="blue" >
+        <Button color="blue" >
           View Details
         </Button>
       </Card.Content>
