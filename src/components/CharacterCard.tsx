@@ -24,6 +24,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
         overflow: 'hidden',
         maxWidth: '20em'
       }}
+      data-testid="character-card"
       onClick={() => navigate(`/character/${character.id}`)}
     >
       <Image src={character.image} alt={character.name} wrapped ui={false} />

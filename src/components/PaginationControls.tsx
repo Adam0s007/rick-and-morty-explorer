@@ -27,9 +27,9 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
     }}
   >
     <Button.Group>
-      <Button icon="angle left" onClick={onPrevPage} disabled={currentPage === 1} />
-      <Button content={`Page ${currentPage} of ${totalPages}`} style={{ opacity: 1, pointerEvents: 'none' }} />
-      <Button icon="angle right" onClick={onNextPage} disabled={currentPage === totalPages} />
+      <Button icon="angle left" onClick={onPrevPage} disabled={currentPage === 1} data-testid="prev-button" />
+      <Button content={`Page ${currentPage} of ${totalPages}`} style={{ opacity: 1, pointerEvents: 'none' }} data-testid="page-info" />
+      <Button icon="angle right" onClick={onNextPage} disabled={currentPage === totalPages} data-testid="next-button" />
     </Button.Group>
   </Grid.Row>
 );

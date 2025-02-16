@@ -8,11 +8,11 @@ const CharacterDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { character, loading, error } = useCharacter(id!);
 
-  if (loading) return <Loader active inline="centered" />;
-  if (error) return <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>;
+  if (loading) return <Loader active inline="centered" data-testid="loader"  />;
+  if (error) return <div style={{ color: 'red', textAlign: 'center' }} data-testid="error">{error}</div>;
   if (!character) return null;
 
-  return <CharacterDetailsCard character={character}  />;
+  return <CharacterDetailsCard character={character} data-testid="character-details-card" />;
 };
 
 export default CharacterDetailPage;

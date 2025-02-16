@@ -10,12 +10,15 @@ interface CharacterGridProps {
 }
 
 const CharacterList: React.FC<CharacterGridProps> = ({ characters, loading, error }) => {
-  if (loading) return <Loader active inline="centered" />;
-  if (error) return <div className="error-message">{error}</div>;
-
+  if (loading) return <Loader active inline="centered" data-testid="loader"  />;
+  if (error) return <div className="error-message" data-testid="error-message">{error}</div>;
+  if (!loading && !error && characters.length === 0) {
+    return <div data-testid="no-results">No characters found</div>;
+  }
   return (
     <Card.Group
-      itemsPerRow={4}
+    data-testid="character-grid"  
+    itemsPerRow={4}
       stackable
       doubling
       style={{ alignItems: 'flex-start', justifyContent: 'center' }}

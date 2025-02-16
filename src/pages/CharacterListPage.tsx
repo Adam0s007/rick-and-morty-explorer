@@ -7,13 +7,6 @@ import PaginationControls from '../components/PaginationControls';
 import CharacterList from '../components/CharacterList';
 import FilterDropdown from '../components/FilterDropdown';
 
-const statusOptions = [
-  { key: 'all', text: 'All', value: '' },
-  { key: 'alive', text: 'Alive', value: 'alive' },
-  { key: 'dead', text: 'Dead', value: 'dead' },
-  { key: 'unknown', text: 'Unknown', value: 'unknown' },
-];
-
 const CharacterListPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialPage = parseInt(searchParams.get('page') || '1', 10);
@@ -42,11 +35,11 @@ const CharacterListPage: React.FC = () => {
   const handleNextPage = () => setCurrentPage(prev => Math.min(totalPages, prev + 1));
 
   return (
-    <Grid padded container>
+    <Grid padded container data-testid="character-list-page">
     <Grid.Row>
       <Grid.Column width={16}>
         <FilterDropdown
-          statusOptions={statusOptions}
+          data-testid="filter-dropdown"
           statusFilter={statusFilter}
           onFilterChange={handleFilterChange}
         />
@@ -54,10 +47,11 @@ const CharacterListPage: React.FC = () => {
     </Grid.Row>
     <Grid.Row>
       <Grid.Column width={16}>
-        <CharacterList characters={characters} loading={loading} error={error} />
+        <CharacterList characters={characters} loading={loading} error={error} data-testid="character-list"/>
       </Grid.Column>
     </Grid.Row>
     <PaginationControls
+      data-testid="pagination-controls"
       currentPage={currentPage}
       totalPages={totalPages}
       onPrevPage={handlePrevPage}
