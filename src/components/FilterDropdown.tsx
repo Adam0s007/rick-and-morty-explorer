@@ -1,5 +1,5 @@
-import React from 'react';
-import { Dropdown } from 'semantic-ui-react';
+import React from "react";
+import { Dropdown } from "semantic-ui-react";
 
 interface FilterDropdownProps {
   statusFilter: string;
@@ -7,10 +7,10 @@ interface FilterDropdownProps {
 }
 
 const statusOptions = [
-  { key: 'all', text: 'All', value: '' },
-  { key: 'alive', text: 'Alive', value: 'alive' },
-  { key: 'dead', text: 'Dead', value: 'dead' },
-  { key: 'unknown', text: 'Unknown', value: 'unknown' },
+  { key: "all", text: "All", value: "" },
+  { key: "alive", text: "Alive", value: "alive" },
+  { key: "dead", text: "Dead", value: "dead" },
+  { key: "unknown", text: "Unknown", value: "unknown" },
 ];
 
 const FilterDropdown: React.FC<FilterDropdownProps> = ({
@@ -19,7 +19,7 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
 }) => (
   <Dropdown
     data-testid="status-dropdown"
-    placeholder="Filter by status" 
+    placeholder="Filter by status"
     selection
     options={statusOptions}
     value={statusFilter}

@@ -1,25 +1,24 @@
-import React from 'react';
-import { Card, Image, Icon, SemanticCOLORS } from 'semantic-ui-react';
-import { Character } from '../../models/Character';
+import React from "react";
+import { Card, Image, Icon, SemanticCOLORS } from "semantic-ui-react";
+import { Character } from "../../models/Character";
 
-const statusColors: Record<Character['status'], SemanticCOLORS> = {
-  Alive: 'green',
-  Dead: 'red',
-  unknown: 'grey'
+const statusColors: Record<Character["status"], SemanticCOLORS> = {
+  Alive: "green",
+  Dead: "red",
+  unknown: "grey",
 };
-
 
 const ProfileCard: React.FC<{ character: Character }> = ({ character }) => {
   const statusKey =
-    character.status === 'Alive' || character.status === 'Dead'
+    character.status === "Alive" || character.status === "Dead"
       ? character.status
-      : 'unknown';
+      : "unknown";
   const statusIconName =
-    character.status === 'Alive'
-      ? 'heartbeat'
-      : character.status === 'Dead'
-      ? 'remove circle'
-      : 'help circle';
+    character.status === "Alive"
+      ? "heartbeat"
+      : character.status === "Dead"
+        ? "remove circle"
+        : "help circle";
 
   return (
     <Card fluid>
@@ -30,7 +29,7 @@ const ProfileCard: React.FC<{ character: Character }> = ({ character }) => {
         </Card.Header>
         <Card.Meta>
           <span>
-            {character.status}{' '}
+            {character.status}{" "}
             <Icon name={statusIconName} color={statusColors[statusKey]} />
           </span>
         </Card.Meta>

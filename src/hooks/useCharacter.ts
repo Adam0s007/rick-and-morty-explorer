@@ -1,5 +1,5 @@
-import { Character } from '../models/Character';
-import { useRequest } from './useRequest';
+import { Character } from "../models/Character";
+import { useRequest } from "./useRequest";
 
 export const useCharacter = (id: string) => {
   const { data, isPending, error } = useRequest<Character>(`/character/${id}`);

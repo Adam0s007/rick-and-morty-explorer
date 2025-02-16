@@ -1,5 +1,5 @@
-import { Character } from '../models/Character';
-import { useRequest } from './useRequest';
+import { Character } from "../models/Character";
+import { useRequest } from "./useRequest";
 
 interface UseCharactersParams {
   page: number;
@@ -17,7 +17,9 @@ interface CharactersResponse {
 }
 
 export const useCharacters = ({ page, status }: UseCharactersParams) => {
-  const endpoint = `/character?page=${page}${status ? `&status=${status}` : ''}`;
+  const endpoint = `/character?page=${page}${
+    status ? `&status=${status}` : ""
+  }`;
   const { data, isPending, error } = useRequest<CharactersResponse>(endpoint);
 
   return {
