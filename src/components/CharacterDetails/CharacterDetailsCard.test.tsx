@@ -25,15 +25,31 @@ jest.mock('react-router-dom', () => {
   return {
     __esModule: true,
     ...originalModule,
-    useNavigate: () => jest.fn(),
+    useNavigate: jest.fn(),
   };
 });
+
+
+jest.mock('./ProfileCard', () => (props: any) => (
+  <div data-testid="profile-card">Profile: {props.character.name}</div>
+));
+jest.mock('./GeneralInfoCard', () => (props: any) => (
+  <div data-testid="general-info-card">{props.title}</div>
+));
+jest.mock('./LocationCard', () => (props: any) => (
+  <div data-testid="location-card">
+    {props.origin.name} - {props.location.name}
+  </div>
+));
+jest.mock('./EpisodesCard', () => (props: any) => (
+  <div data-testid="episodes-card">Episode: {props.episodes[0]}</div>
+));
 
 describe('CharacterDetailsCard', () => {
   it('renders the "Back to Character List" button and reacts on click', () => {
     const mockNavigate = jest.fn();
-
-    jest.spyOn(require('react-router-dom'), 'useNavigate').mockImplementation(() => mockNavigate);
+    const useNavigate = require('react-router-dom').useNavigate;
+    useNavigate.mockImplementation(() => mockNavigate);
 
     render(
       <MemoryRouter>
@@ -45,5 +61,49 @@ describe('CharacterDetailsCard', () => {
     expect(button).toBeInTheDocument();
     fireEvent.click(button);
     expect(mockNavigate).toHaveBeenCalledWith(ROUTES.CHARACTERS);
+  });
+
+  it('renders ProfileCard with the correct character name', () => {
+    render(
+      <MemoryRouter>
+        <CharacterDetailsCard character={mockCharacter} />
+      </MemoryRouter>
+    );
+    const profileCard = screen.getAllByTestId('profile-card')[0];
+    expect(profileCard).toHaveTextContent(`Profile: ${mockCharacter.name}`);
+  });
+
+  it('renders GeneralInfoCard with title "General Information"', () => {
+    render(
+      <MemoryRouter>
+        <CharacterDetailsCard character={mockCharacter} />
+      </MemoryRouter>
+    );
+    const generalInfoCards = screen.getAllByTestId('general-info-card');
+    generalInfoCards.forEach((card) => {
+      expect(card).toHaveTextContent('General Information');
+    });
+  });
+
+  it('renders LocationCard with origin and location names', () => {
+    render(
+      <MemoryRouter>
+        <CharacterDetailsCard character={mockCharacter} />
+      </MemoryRouter>
+    );
+    const locationCards = screen.getAllByTestId('location-card');
+    locationCards.forEach((card) => {
+      expect(card).toHaveTextContent(`${mockCharacter.origin.name} - ${mockCharacter.location.name}`);
+    });
+  });
+
+  it('renders EpisodesCard with the correct episode url', () => {
+    render(
+      <MemoryRouter>
+        <CharacterDetailsCard character={mockCharacter} />
+      </MemoryRouter>
+    );
+    const episodesCard = screen.getByTestId('episodes-card');
+    expect(episodesCard).toHaveTextContent(`Episode: ${mockCharacter.episode[0]}`);
   });
 });
