@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card, Icon, Image, Label, Button } from 'semantic-ui-react';
 import { Character } from '../models/Character';
 import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../config/routes';
 
 interface CharacterCardProps {
   character: Character;
@@ -25,7 +26,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
         maxWidth: '20em'
       }}
       data-testid="character-card"
-      onClick={() => navigate(`/character/${character.id}`)}
+      onClick={() => navigate(ROUTES.CHARACTER_DETAILS(character.id.toString()))}
     >
       <Image src={character.image} alt={character.name} wrapped ui={false} />
       

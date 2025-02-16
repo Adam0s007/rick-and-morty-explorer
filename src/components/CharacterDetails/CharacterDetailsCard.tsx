@@ -6,6 +6,7 @@ import GeneralInfoCard from './GeneralInfoCard';
 import LocationCard from './LocationCard';
 import EpisodesCard from './EpisodesCard';
 import { Character } from '../../models/Character';
+import { ROUTES } from '../../config/routes';
 
 
 const CharacterDetailsCard: React.FC<{ character: Character }> = ({ character }) => {
@@ -13,7 +14,7 @@ const CharacterDetailsCard: React.FC<{ character: Character }> = ({ character })
 
   return (
     <>
-      <Button color="blue" onClick={() => navigate('/character')} style={{ marginBottom: '1em' }}>
+      <Button color="blue" onClick={() => navigate(ROUTES.CHARACTERS)} style={{ marginBottom: '1em' }}>
         Back to Character List
       </Button>
       <Grid>

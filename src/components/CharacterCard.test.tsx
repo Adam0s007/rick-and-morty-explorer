@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import CharacterCard from './CharacterCard';
 import { MemoryRouter } from 'react-router-dom';
 import { Character } from '../models/Character';
+import { ROUTES } from '../config/routes';
 
 const character: Character = {
   id: 1,
@@ -86,6 +87,6 @@ describe('CharacterCard', () => {
 
 
     fireEvent.click(cardElement!);
-    expect(mockNavigate).toHaveBeenCalledWith(`/character/${character.id}`);
+    expect(mockNavigate).toHaveBeenCalledWith(ROUTES.CHARACTER_DETAILS(`${character.id}`));
   });
 });

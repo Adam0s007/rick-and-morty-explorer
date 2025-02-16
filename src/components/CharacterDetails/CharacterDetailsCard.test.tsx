@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import CharacterDetailsCard from './CharacterDetailsCard';
 import { Character } from '../../models/Character';
 import { MemoryRouter } from 'react-router-dom';
+import { ROUTES } from '../../config/routes';
 
 const mockCharacter: Character = {
   id: 1,
@@ -43,6 +44,6 @@ describe('CharacterDetailsCard', () => {
     const button = screen.getByRole('button', { name: /Back to Character List/i });
     expect(button).toBeInTheDocument();
     fireEvent.click(button);
-    expect(mockNavigate).toHaveBeenCalledWith('/character');
+    expect(mockNavigate).toHaveBeenCalledWith(ROUTES.CHARACTERS);
   });
 });

@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter, Routes, Route, useLocation } from 'react-router-dom';
 import CharacterListPage from './CharacterListPage';
 import { useCharacters } from '../hooks/useCharacters';
+import { ROUTES } from '../config/routes';
 
 jest.mock('../hooks/useCharacters');
 
@@ -50,7 +51,7 @@ describe('CharacterListPage', () => {
 
 
 
-  const renderPage = (initialPath = '/character?page=2&status=') => {
+  const renderPage = (initialPath = ROUTES.CHARACTERS+'?page=2&status=') => {
     return render(
       <MemoryRouter initialEntries={[initialPath]}>
         <Routes>
@@ -70,7 +71,7 @@ describe('CharacterListPage', () => {
   });
 
   it('renders the page with initial search params', () => {
-    renderPage('/character?page=2&status=');
+    renderPage(ROUTES.CHARACTERS+'?page=2&status=');
 
     expect(screen.getByTestId('pagination-controls-mock')).toHaveTextContent('Page 2 of 5');
     expect(screen.getByTestId('filter-dropdown-mock')).toBeInTheDocument();
@@ -78,7 +79,7 @@ describe('CharacterListPage', () => {
   });
 
   it('resets currentPage to 1 when filter is changed', async () => {
-    renderPage('/character?page=3&status=');
+    renderPage(ROUTES.CHARACTERS+'?page=3&status=');
 
     expect(screen.getByTestId('pagination-controls-mock')).toHaveTextContent('Page 3 of 5');
 
@@ -90,7 +91,7 @@ describe('CharacterListPage', () => {
   });
 
   it('handles pagination controls correctly', async () => {
-    renderPage('/character?page=2&status=');
+    renderPage(ROUTES.CHARACTERS+'?page=2&status=');
     const pagination = screen.getByTestId('pagination-controls-mock');
 
     expect(pagination).toHaveTextContent('Page 2 of 5');
@@ -107,7 +108,7 @@ describe('CharacterListPage', () => {
   });
 
   it('updates URL search params when page or filter changes', async () => {
-    renderPage('/?page=4&status=');
+    renderPage(ROUTES.CHARACTERS+'?page=4&status=');
 
     expect(screen.getByTestId('pagination-controls-mock')).toHaveTextContent('Page 4 of 5');
 
